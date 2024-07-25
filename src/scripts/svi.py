@@ -82,9 +82,9 @@ def main(config):
     timestr = time.strftime("%Y%m%d-%H%M%S")
 
     job_name = config["job_name"]
-    job_species = config["N_species"]
+    save_path = config["save_path"]
 
-    PATH = f"{config["save_path"]}_{job_species}_{job_name}_{timestr}"
+    PATH = f"./{save_path}/N={N_SPECIES}_{job_name}_{timestr}"
     if not os.path.exists(PATH):
         os.makedirs(PATH)
 
@@ -132,7 +132,7 @@ def main(config):
                 jnp.apply_along_axis(bitonic_sort, -1, raw_gammas)
             )
 
-            gammas_sorted = gammas_sorted.at[:, -1].set(-1)
+            gammas_sorted = gammas_sorted.at[:, -1].set(jnp.log10(config['edge_effect_ratio']))
             gammas_sorted = jnp.clip(gammas_sorted, -jnp.inf, 0)
 
             stasis_val, asymptote_val = simulator_vmap(
@@ -156,7 +156,7 @@ def main(config):
                 jnp.apply_along_axis(bitonic_sort, -1, raw_gammas)
             )
 
-            gammas_sorted = gammas_sorted.at[:, -1].set(-1)
+            gammas_sorted = gammas_sorted.at[:, -1].set(jnp.log10(config['edge_effect_ratio']))
             gammas_sorted = jnp.clip(gammas_sorted, -jnp.inf, 0)
 
 
@@ -181,6 +181,9 @@ def main(config):
 
             omegas_sorted = jnp.apply_along_axis(bitonic_sort, -1, omegas)
             gammas_sorted = jnp.apply_along_axis(bitonic_sort, -1, gammas)
+            
+            gammas_sorted = gammas_sorted.at[:, -1].set(jnp.log10(config['edge_effect_ratio']))
+            gammas_sorted = jnp.clip(gammas_sorted, -jnp.inf, 0)
 
             stasis_val, asymptote_val = simulator_vmap(
                 omegas=omegas_sorted, gammas=gammas_sorted, H_0=1
@@ -257,10 +260,10 @@ def main(config):
         sort_transformed_omegas = jnp.sort(omegas, axis=-1)
 
         best_sorted_gammas = 10 ** (
-            sort_transformed_gammas.reshape(desired_num_samples, config["N_species"])
+            sort_transformed_gammas.reshape(desired_num_samples, config["num_species"])
         )
         best_sorted_omegas = 10 ** (
-            sort_transformed_omegas.reshape(desired_num_samples, config["N_species"])
+            sort_transformed_omegas.reshape(desired_num_samples, config["num_species"])
         )
 
     elif config["prior"] == "pareto":
@@ -271,14 +274,14 @@ def main(config):
         transformed_gammas = jnp.sort(gammas, axis=-1)
 
         best_sorted_gammas = 10 ** (
-            transformed_gammas.reshape(desired_num_samples, config["N_species"])
+            transformed_gammas.reshape(desired_num_samples, config["num_species"])
         )
         best_sorted_omegas = 10 ** (
-            transformed_omegas.reshape(desired_num_samples, config["N_species"])
+            transformed_omegas.reshape(desired_num_samples, config["num_species"])
         )
 
-    best_sorted_gammas = best_sorted_gammas.at[best_sorted_gammas > 0.01].set(0.01)
-    best_sorted_gammas = best_sorted_gammas.at[-1].set(0.01)
+    best_sorted_gammas = best_sorted_gammas.at[best_sorted_gammas > config['edge_effect_ratio']].set(config['edge_effect_ratio'])
+    best_sorted_gammas = best_sorted_gammas.at[-1].set(config['edge_effect_ratio'])
 
     best_sorted_samples = {"gammas": best_sorted_gammas, "omegas": best_sorted_omegas}
 
@@ -297,10 +300,10 @@ def main(config):
         sort_transformed_omegas = jnp.sort(omegas, axis=-1)
 
         final_sorted_gammas = 10 ** (
-            sort_transformed_gammas.reshape(desired_num_samples, config["N_species"])
+            sort_transformed_gammas.reshape(desired_num_samples, config["num_species"])
         )
         final_sorted_omegas = 10 ** (
-            sort_transformed_omegas.reshape(desired_num_samples, config["N_species"])
+            sort_transformed_omegas.reshape(desired_num_samples, config["num_species"])
         )
 
     if config["prior"] == "pareto":
@@ -311,18 +314,15 @@ def main(config):
         transformed_gammas = jnp.sort(gammas, axis=-1)
 
         final_sorted_gammas = 10 ** (
-            transformed_gammas.reshape(desired_num_samples, config["N_species"])
+            transformed_gammas.reshape(desired_num_samples, config["num_species"])
         )
         final_sorted_omegas = 10 ** (
-            transformed_omegas.reshape(desired_num_samples, config["N_species"])
+            transformed_omegas.reshape(desired_num_samples, config["num_species"])
         )
 
-    if config["ratio"] == 10 and config["H_0"] == 0.1:
-        final_sorted_gammas = final_sorted_gammas.at[:, -1].set(1.0)
 
-    elif config["ratio"] == 0.1 and config["H_0"] == 1.0:
-        final_sorted_gammas = final_sorted_gammas.at[final_sorted_gammas > 0.1].set(0.1)
-        final_sorted_gammas = final_sorted_gammas.at[-1].set(0.1)
+    final_sorted_gammas = final_sorted_gammas.at[final_sorted_gammas > config['edge_effect_ratio']].set(config['edge_effect_ratio'])
+    final_sorted_gammas = final_sorted_gammas.at[-1].set(config['edge_effect_ratio'])
 
     final_sorted_samples = {
         "gammas": final_sorted_gammas,
