@@ -1,0 +1,16 @@
+num_species: 50
+batch_size: 10
+job_name: test_experiment
+save_path: svi_experiments
+prior: log_uniform
+omega_min: 1e-2
+omega_max: 1e0
+gamma_min: 1e-62
+gamma_max: 1e0
+kappa: 10
+num_flows: 2
+hidden_dim: 8
+num_epochs: 2000
+patience: 500
+
+
