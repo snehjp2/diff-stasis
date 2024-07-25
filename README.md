@@ -1,6 +1,6 @@
 # On the Generality and Persistence of Cosmological Stasis
 
-[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](https://github.com/snehjp2/diff-stasis/blob/main/LICENSE)
+[![Code License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/snehjp2/diff-stasis/blob/main/LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
 Implementation of 
@@ -8,6 +8,14 @@ Implementation of
 <arxiv link>
 
 by James Halverson and Sneh Pandya
+
+
+<table>
+    <tr>
+        <td><img src="src/tutorials/stasis_gif.gif" alt="GIF" style="width: 600px;"/></td>
+        <td><img src="src/tutorials/last_frame.png" alt="PNG" style="width: 600px;"/></td>
+    </tr>
+</table>
 
 ## Abstract
 
@@ -29,30 +37,19 @@ Our codebase is structured as follows:
 
 `src/scripts` contains the main ingredients for our methodology.
 
-     - `stasis_simulation_differentiable.py` is the differentiable stasis simulation, containing the differentiable Boltzmann solver and stasis finder. This is used in SVI and gradient ascent experiments.
-
-     - `stasis_simulation_non_diff.py` is the **non-differentiable** stasis simulation. This is used for creating plots and features an accurate, sliding-window stasis finder algorithm. This also has parametric functionality built in via the `model` argument, which allows one to generate power-law and exponential-dependent stasis configurations.
-
-     - 'svi.py' contains code for doing stochastic variational inferenece with normalizing flows. This requires a `yaml` file specifying experimental parameters, an example of which is given in `src/tutorials/example_svi_experiment.yaml'.
+     - ```stasis_simulation_differentiable.py``` is the differentiable stasis simulation, containing the differentiable Boltzmann solver and stasis finder. This is used in SVI and gradient ascent experiments.
+     - ```stasis_simulation_non_diff.py``` is the **non-differentiable** stasis simulation. This is used for creating plots and features an accurate, sliding-window stasis finder algorithm. This also has parametric functionality built in via the `model` argument, which allows one to generate power-law and exponential-dependent stasis configurations.
+     - ```svi.py``` contains code for doing stochastic variational inferenece with normalizing flows. This requires a `yaml` file specifying experimental parameters, an example of which is given in `src/tutorials/example_svi_experiment.yaml'.
 
 `src/tutorials` contains examples which coincide with the experiments in our paper. 
 
-    - `gradient_ascent.ipynb` gives a walk through in how gradients in the simulation can be used to produce stasis with minimal physical biases in the initialization. It also visualizes the optimization trajectories with a gif.
-
-    - `model_comparison.ipynb` does a numerical comparison between power-law and exponential models of stasis. It also shows that both stasis models are attractors.
-
-    - `random_stasis.ipynb` shows that rates and abundances drawn from certain families of distributions can result in persistent epochs of stasis.
+    - ```gradient_ascent.ipynb``` gives a walk through in how gradients in the simulation can be used to produce stasis with minimal physical biases in the initialization. It also visualizes the optimization trajectories with a gif.
+    - ```model_comparison.ipynb``` does a numerical comparison between power-law and exponential models of stasis. It also shows that both stasis models are attractors.
+    - ```random_stasis.ipynb``` shows that rates and abundances drawn from certain families of distributions can result in persistent epochs of stasis.
 
 
-# Contact
+## Contact
 
-**Code authors:**: Sneh Pandya
-Issues and questions: feel free to open an issue or email me at pandya.sne@northeastern.edu
+**Code author:** Keegan Stoner <p> 
 
-
-<table>
-    <tr>
-        <td><img src="src/tutorials/stasis_gif.gif" alt="GIF" style="width: 300px;"/></td>
-        <td><img src="src/tutorials/last_frame.png" alt="PNG" style="width: 300px;"/></td>
-    </tr>
-</table>
+**Issues and questions:** @snehjp2, pandys.sne@northeastern.edu <p>
