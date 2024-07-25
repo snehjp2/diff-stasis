@@ -12,8 +12,8 @@ by James Halverson and Sneh Pandya
 
 <table>
     <tr>
-        <td><img src="src/tutorials/stasis_gif.gif" alt="GIF" style="width: 600px;"/></td>
-        <td><img src="src/tutorials/last_frame.png" alt="PNG" style="width: 600px;"/></td>
+        <td><img src="src/tutorials/stasis_gif.gif" alt="GIF" style="width: 800px;"/></td>
+        <td><img src="src/tutorials/last_frame.png" alt="PNG" style="width: 800px;"/></td>
     </tr>
 </table>
 
@@ -23,15 +23,15 @@ Hierarchical decays of $N$ matter species to radiation may balance against Hubbl
 
 ## Using this code
 
-This project is developed for Python3.9 interpreter on a linux machine. Using an Anaconda virtual environment is recommended.
+This project is developed for Python3.9 interpreter on a linux machine. Using an Anaconda virtual environment is recommended. Our implementation hinges on [`diffrax`](https://docs.kidger.site/diffrax/) and [`numpyro`](http://pyro.ai/numpyro/), packages built on [`jax`](https://jax.readthedocs.io/en/latest/) 🚀. 
 
-To install dependencies, run:
+To install dependencies, you can run
 
 ```console
 pip install -r requirements.txt
 ```
 
-or consult online documentation for appropriate dependencies.
+or consult online documentation for appropriate dependencies. It is highly reccomended to follow jax install directions from the source.
 
 Our codebase is structured as follows:
 
@@ -50,6 +50,7 @@ Our codebase is structured as follows:
 
 ## Contact
 
-**Code author:** Keegan Stoner <p> 
+**Code author:** Sneh Pandya <p> 
 
-**Issues and questions:** @snehjp2, pandys.sne@northeastern.edu <p>
+**Issues and questions:** @snehjp2, pandya.sne@northeastern.edu <p>
+
