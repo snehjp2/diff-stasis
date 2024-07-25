@@ -35,17 +35,17 @@ or consult online documentation for appropriate dependencies.
 
 Our codebase is structured as follows:
 
-`src/scripts` contains the main ingredients for our methodology.
+```src/scripts``` contains the main ingredients for our methodology.
 
-     - ```stasis_simulation_differentiable.py``` is the differentiable stasis simulation, containing the differentiable Boltzmann solver and stasis finder. This is used in SVI and gradient ascent experiments.
-     - ```stasis_simulation_non_diff.py``` is the **non-differentiable** stasis simulation. This is used for creating plots and features an accurate, sliding-window stasis finder algorithm. This also has parametric functionality built in via the `model` argument, which allows one to generate power-law and exponential-dependent stasis configurations.
-     - ```svi.py``` contains code for doing stochastic variational inferenece with normalizing flows. This requires a `yaml` file specifying experimental parameters, an example of which is given in `src/tutorials/example_svi_experiment.yaml'.
+- ```stasis_simulation_differentiable.py``` is the differentiable stasis simulation, containing the differentiable Boltzmann solver and stasis finder. This is used in SVI and gradient ascent experiments.
+- ```stasis_simulation_non_diff.py``` is the **non-differentiable** stasis simulation. This is used for creating plots and features an accurate, sliding-window stasis finder algorithm. This also has parametric functionality built in via the `model` argument, which allows one to generate power-law and exponential-dependent stasis configurations.
+- ```svi.py``` contains code for doing stochastic variational inference with normalizing flows. This requires a `yaml` file specifying experimental parameters, an example of which is given in `src/tutorials/example_svi_experiment.yaml`.
 
 `src/tutorials` contains examples which coincide with the experiments in our paper. 
 
-    - ```gradient_ascent.ipynb``` gives a walk through in how gradients in the simulation can be used to produce stasis with minimal physical biases in the initialization. It also visualizes the optimization trajectories with a gif.
-    - ```model_comparison.ipynb``` does a numerical comparison between power-law and exponential models of stasis. It also shows that both stasis models are attractors.
-    - ```random_stasis.ipynb``` shows that rates and abundances drawn from certain families of distributions can result in persistent epochs of stasis.
+- ```gradient_ascent.ipynb``` gives a walk-through in how gradients in the simulation can be used to produce stasis with minimal physical biases in the initialization. It also visualizes the optimization trajectories with a gif.
+- ```model_comparison.ipynb``` does a numerical comparison between power-law and exponential models of stasis. It also shows that both stasis models are attractors.
+- ```random_stasis.ipynb``` shows that rates and abundances drawn from certain families of distributions can result in persistent epochs of stasis.
 
 
 ## Contact
